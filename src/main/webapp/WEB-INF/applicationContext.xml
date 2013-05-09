@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:hsf="http://www.alibaba-inc.com/schema/dxp/hsf"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.alibaba-inc.com/schema/dxp/hsf     http://www.alibaba-inc.com/schema/dxp/hsf/spring-hsf.xsd">
+	
+	<context:component-scan  base-package="com.dd" />
+	
+	<hsf:export scan-package="com.taobao.dxp,com.dd" clientTimeout="700" serviceGroup="Dxp-CWF" serviceVersion="1.1.1"/>
+	
+	<bean id="exPPK" class="com.taobao.dxp.impl.ExportImpl"></bean>
+</beans>
+
+

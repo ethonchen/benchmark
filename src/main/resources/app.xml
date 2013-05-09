@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://repo.alibaba-inc.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://repo.alibaba-inc.com/schema/dubbo
+        http://repo.alibaba-inc.com/schema/dubbo/dubbo-component.xsd
+        ">
+ 
+    <!-- 当前应用信息配置 -->
+    <dubbo:application name="hello"  />
+ 
+    <!-- 连接注册中心配置 -->
+    <dubbo:registry address="N/A" />
+ 
+    <!-- 暴露服务配置 -->
+    <dubbo:service interface="com.dd.OtherPackage" version="1.0.0" ref="helloService" />
+ 
+    <!-- 服务实现 -->
+    <bean id="helloService" class="com.dd.impl.OtherPackageImpl" />
+ 
+</beans>

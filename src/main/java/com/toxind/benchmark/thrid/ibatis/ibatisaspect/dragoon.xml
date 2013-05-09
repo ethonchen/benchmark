@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+	default-lazy-init="true">
+
+	<bean id="dragoon-dao-interceptor" class="com.alibaba.dragoon.patrol.spring.DragoonMethodInterceptor">
+		<property name="profileType" value="DAO" />
+	</bean>
+	<bean id="dragoon-service-interceptor" class="com.alibaba.dragoon.patrol.spring.DragoonMethodInterceptor">
+		<property name="profileType" value="SERVICE" />
+	</bean>
+	<bean id="dragoon-rpc-interceptor" class="com.alibaba.dragoon.patrol.spring.DragoonMethodInterceptor">
+		<property name="profileType" value="RPC" />
+	</bean>
+	<bean id="dragoon-se-interceptor" class="com.alibaba.dragoon.patrol.spring.DragoonMethodInterceptor">
+		<property name="profileType" value="SE" />
+	</bean>
+	<bean id="dragoon-cache-interceptor" class="com.alibaba.dragoon.patrol.spring.DragoonMethodInterceptor">
+		<property name="profileType" value="CACHE" />
+	</bean>
+
+	<bean class="com.alibaba.dragoon.patrol.spring.SpringIbatisBeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>sqlMapClient</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dragoon-dao-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.ibatisaspect.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config>
+		<aop:advisor advice-ref="dragoon-dao-interceptor"
+			pointcut-ref="dragoon-dao-pointcut" />
+	</aop:config>
+
+
+
+</beans>

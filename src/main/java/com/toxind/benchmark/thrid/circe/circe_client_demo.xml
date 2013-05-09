@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="circeConnector" class="com.alibaba.circe.client.impl.CirceConnector"
+		init-method="init" destroy-method="close">
+		<property name="serverAddress" value="10.20.159.93:8160" />
+	</bean>
+
+	<bean name="circeService" class="com.alibaba.circe.client.impl.CirceServiceImpl"
+		init-method="init" destroy-method="close">
+		<property name="circeConnector" ref="circeConnector" />
+		<property name="namespace" value="circe_demo" />
+		<property name="token" value="Y9ATHIX6DNARA0SY" />
+	</bean>
+
+	<bean name="circeDigestService" class="com.alibaba.circe.client.impl.CirceDigestServiceImpl"
+		init-method="init" destroy-method="close">
+		<property name="circeConnector" ref="circeConnector" />
+		<property name="namespace" value="circe_demo" />
+		<property name="token" value="Y9ATHIX6DNARA0SY" />
+	</bean>
+
+	<bean name="circeSignService" class="com.alibaba.circe.client.impl.CirceSignServiceImpl"
+		init-method="init" destroy-method="close">
+		<property name="circeConnector" ref="circeConnector" />
+		<property name="namespace" value="circe_demo" />
+		<property name="token" value="Y9ATHIX6DNARA0SY" />
+	</bean>
+</beans>

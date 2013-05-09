@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE abatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Abator for iBATIS Configuration 1.0//EN" "http://ibatis.apache.org/dtd/abator-config_1_0.dtd" >
+<abatorConfiguration >
+  <abatorContext >
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@10.20.130.210:1521:DWTEST" userId="tianxuan" password="tianxuan" >
+      <classPathEntry location="D:\MavenRepository\com\alibaba\external\jdbc.oracle\11.1.0.7\jdbc.oracle-11.1.0.7.jar" />
+    </jdbcConnection>
+    <javaModelGenerator targetPackage="com.ibatis.dynamic.model" targetProject="toxind" />
+    <sqlMapGenerator targetPackage="com.ibatis.dynamic" targetProject="toxind" />
+    <daoGenerator targetPackage="com.ibatis.dynamic.dao" targetProject="toxind" type="SPRING" />
+    <table schema="tianxuan" tableName="dw_dwsoa_dynamicsql" domainObjectName="DynamicSql" >
+    	<columnOverride column="id" property="id" javaType="java.lang.long"/>   
+    	<columnOverride column="appid" property="appId" javaType="java.lang.String"/>
+    	<columnOverride column="sqlid" property="sqlId" javaType="java.lang.String"/> 	
+    	<columnOverride column="ParameterType" property="parameterType" javaType="java.lang.String"/>
+    	<columnOverride column="ResultType" property="resultType" javaType="java.lang.String"/>
+    	<columnOverride column="ContentSql" property="contentSql" javaType="java.lang.String"/>
+    	<columnOverride column="SqlDesc" property="sqlDesc" javaType="java.lang.String"/>
+    	<columnOverride column="SqlType" property="sqlType" javaType="java.lang.String"/>
+    	<columnOverride column="columnTrans" property="columnTrans" javaType="java.lang.String"/>
+    	<columnOverride column="columnSplits" property="columnSplits" javaType="java.lang.String"/>
+    </table>
+  </abatorContext>
+</abatorConfiguration>

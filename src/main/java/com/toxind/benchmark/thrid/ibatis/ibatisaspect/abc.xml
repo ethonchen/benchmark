@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="abc">
+
+	<select id="T1" parameterClass="map" resultClass="java.util.HashMap">
+		<![CDATA[
+			select * from t_abc where a = #a#
+		]]>
+	</select>
+	<select id="T2" parameterClass="map" resultClass="java.util.HashMap">
+		<![CDATA[
+			select * from t_abc where rownum < 3
+		]]>
+	</select>
+</sqlMap>

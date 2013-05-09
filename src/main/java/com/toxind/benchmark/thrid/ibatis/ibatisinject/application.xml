@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+		default-autowire="byName">
+	
+	<context:component-scan base-package="com.ibatis"></context:component-scan>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 数据源配置 ORACLE-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.alibaba.druid.proxy.DruidDriver" />
+		<property name="url" value="jdbc:wrap-jdbc:filters=default:name=com.alibaba.dragoon.master:jdbc:mysql://10.20.174.100:8066/rtdc?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>12345</value>
+		</property>
+		<property name="maxActive">
+			<value>20</value>
+		</property>
+		<property name="initialSize">
+			<value>1</value>
+		</property>
+		<property name="maxWait">
+			<value>60000</value>
+		</property>
+		<property name="maxIdle">
+			<value>20</value>
+		</property>
+		<property name="minIdle">
+			<value>0</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>180</value>
+		</property>
+		<property name="connectionProperties">
+			<value>clientEncoding=UTF-8</value>
+		</property>
+		<!-- sql检查配置,在idle空闲线程检查时,检查链接有效性，丢弃无效的链接,实现自动重连-->
+		<!-- 注意使用cobar时,因为走了F5进行负载,F5默认5分钟会关闭空闲链接,所以需要通过心跳SQL保证数据库链接不被异常关闭 -->
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>60000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>180000</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<property name="validationQuery">
+			<value>SELECT @@SQL_MODE</value>
+		</property>
+		<property name="numTestsPerEvictionRun">
+			<value>-1</value>
+		</property><!-- 注意和maxActive保持一致 -->
+		<!--
+			打开statement cache <property
+			name="poolPreparedStatements"><value>true</value></property>
+			<property
+			name="maxOpenPreparedStatements"><value>10</value></property>
+		-->
+	</bean>
+
+
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:com/ibatis/sqlmap-config.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="lobHandler">
+			<ref local="oracleLobHandler" />
+		</property>
+	</bean>
+	
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true" />
+	
+	<bean id="abcDao" class="com.ibatis.AbcDao"></bean>
+</beans>

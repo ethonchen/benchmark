@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE abatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Abator for iBATIS Configuration 1.0//EN" "http://ibatis.apache.org/dtd/abator-config_1_0.dtd" >
+<abatorConfiguration >
+  <abatorContext >
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@10.20.130.210:1521:DWTEST" userId="tianxuan" password="tianxuan" >
+      <classPathEntry location="D:\MavenRepository\com\alibaba\external\jdbc.oracle\11.1.0.7\jdbc.oracle-11.1.0.7.jar" />
+    </jdbcConnection>
+    <javaModelGenerator targetPackage="com.ibatis.abator.websqlconfig.model" targetProject="toxind" />
+    <sqlMapGenerator targetPackage="com.ibatis.abator.websqlconfig.sqlmapping" targetProject="toxind" />
+    <daoGenerator targetPackage="com.ibatis.abator.websqlconfig.dao" targetProject="toxind" type="SPRING" />
+    <table schema="tianxuan" tableName="xx_xx_1" >
+    </table>
+  </abatorContext>
+</abatorConfiguration>
